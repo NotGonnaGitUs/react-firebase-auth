@@ -9,7 +9,7 @@ import PasswordForgetPage from "../PasswordForget";
 import HomePage from "../Home";
 import AccountPage from "../Account";
 import AdminPage from "../Admin";
-
+import { AuthUserContext } from "../Session";
 import * as ROUTES from "../../constants/routes";
 
 class App extends Component {
@@ -29,18 +29,20 @@ class App extends Component {
   }
   render() {
     return (
-      <Router>
-        <Navigation authUser={this.state.authUser} />
+      <AuthUserContext.Provider value={this.state.authUser}>
+        <Router>
+          <Navigation />
 
-        <hr />
-        <Route exact path={ROUTES.LANDING} component={LandingPage} />
-        <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-        <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-        <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-        <Route path={ROUTES.HOME} component={HomePage} />
-        <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-        <Route path={ROUTES.ADMIN} component={AdminPage} />
-      </Router>
+          <hr />
+          <Route exact path={ROUTES.LANDING} component={LandingPage} />
+          <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+          <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+          <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+          <Route path={ROUTES.HOME} component={HomePage} />
+          <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+          <Route path={ROUTES.ADMIN} component={AdminPage} />
+        </Router>
+      </AuthUserContext.Provider>
     );
   }
 }
